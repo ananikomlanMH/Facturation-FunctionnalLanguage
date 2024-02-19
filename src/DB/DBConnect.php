@@ -11,7 +11,7 @@ class DBConnect
     private string $host = 'localhost';
     private ?string $username = 'root';
     private ?string $password = '';
-    private ?string $database = 'db';
+    private ?string $database = 'facturation_prog';
     private PDO $db;
 
     public function __construct(string $host = null, string $username = null, string $password = null, string $database = null)
@@ -30,11 +30,11 @@ class DBConnect
         }
     }
 
-    public function query(string $sql, array $data = [], ?string $class = null): array
+    public function query(string $sql, array $data = []): array
     {
         $req = $this->db->prepare($sql);
         $req->execute($data);
-        return $req->fetchAll(PDO::FETCH_OBJ);
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function queryBuild(string $sql, array $data = []): bool

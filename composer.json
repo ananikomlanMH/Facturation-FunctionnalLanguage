@@ -11,5 +11,7 @@
             "email": "ananikmh17@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
 }
