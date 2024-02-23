@@ -31,8 +31,8 @@ function _addFactureToDb(string $table): void
         ];
 
         $db = new \App\DB\DBConnect();
-        $db->queryBuild("INSERT INTO factures (date,code, total_ht, total_ttc, clients_id) 
-            values (:date,:code, :total_ht, :total_ttc, :clients_id)", $facture_data);
+        $db->queryBuild("INSERT INTO factures (date,code, client, total_ht, total_ttc, clients_id) 
+            values (:date,:code, :client, :total_ht, :total_ttc, :clients_id)", $facture_data);
         $id = $db->getPDO()->lastInsertId();
         foreach ($ligne_facture as $item){
             $item['factures_id'] = $id;

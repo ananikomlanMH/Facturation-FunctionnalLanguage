@@ -207,7 +207,7 @@ function _getFacturePrint($id): void
     $facture = _findDataFromDb('factures', $id);
     $db = new \App\DB\DBConnect();
 
-    $ligneFacture = $db->query("SELECT p.libelle as libelle, lf.qte, lf.pu, (lf.qte*lf.pu) as m_ht, (lf.qte*lf.pu)*1.19 as m_ttc, (lf.qte*lf.pu)*0.19 as tva FROM lignes_factures as lf, produits as p WHERE lf.factures_id = ".$facture['id']);
+    $ligneFacture = $db->query("SELECT p.libelle as libelle, lf.qte, lf.pu, (lf.qte*lf.pu) as m_ht, (lf.qte*lf.pu)*1.19 as m_ttc, (lf.qte*lf.pu)*0.19 as tva FROM lignes_factures as lf, produits as p WHERE p.id = lf.produits_id AND lf.factures_id = ".$facture['id']);
 
     $client = _findDataFromDb('clients', $facture['clients_id']);
 
