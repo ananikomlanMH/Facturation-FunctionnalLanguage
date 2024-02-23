@@ -48,3 +48,11 @@
         });
     })
 })
+
+    new TomSelect("#client_id",{
+        create: true,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        }
+    });

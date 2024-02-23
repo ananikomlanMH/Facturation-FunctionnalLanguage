@@ -180,6 +180,7 @@ function _init_layout(string $content): void
 {
     $head = _head([
         '/assets/css/styles.css',
+        '/assets/css/addStyle.css',
         '/assets/css/jquery-confirm.min.min.css',
         '/assets/css/tom-select.min.css',
     ], "G-FACTURATION", "fr");
@@ -189,6 +190,7 @@ function _init_layout(string $content): void
         "/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
         "/assets/js/sidebarmenu.js",
         "/assets/js/app.min.js",
+        "/assets/js/facture.js",
         "/assets/libs/apexcharts/dist/apexcharts.min.js",
         "/assets/libs/simplebar/dist/simplebar.js",
         "/assets/js/dashboard.js",
@@ -205,7 +207,13 @@ function _init_layout(string $content): void
         'FACTURE' => [
             [
                 'title' => 'Factures',
-                'link' => 'facture',
+                'link' => 'factures',
+            ]
+        ],
+        'DEPENSE' => [
+            [
+                'title' => 'Depense',
+                'link' => 'depense',
             ]
         ],
         'Configurations' => [

@@ -8,6 +8,31 @@ function _getBodyContent(): string
     $page = $_REQUEST['page'] ?? null;
 
     switch ($page) {
+        case 'factures':
+            $content = _getView('factures', [
+                'id' => '#',
+                'code' => 'Code',
+                'client' => 'Client',
+                'date' => 'Dates',
+                'total_ht' => 'Total HT',
+                'total_ttc' => 'Total TTC'
+            ],
+                [
+                    'print_factures' => "Imprimer",
+                ]
+            );
+            break;
+        case 'add_factures':
+            $content = _getFactureForm();
+            break;
+        case 'print_factures':
+            $_data = _findDataFromDb('factures', $_GET['id']);
+            if (!$_data) {
+                $content = _404();
+                break;
+            }
+            $content = _getFacturePrint($_data['id']);
+            break;
         case 'clients':
             $content = _getView('clients', [
                 'id' => '#',
@@ -16,10 +41,10 @@ function _getBodyContent(): string
                 'adresse' => 'Adresse',
                 'email' => 'Email'
             ],
-            [
-                'edit_clients' => "Editer",
-                'delete_clients' => "Supprimer",
-            ]
+                [
+                    'edit_clients' => "Editer",
+                    'delete_clients' => "Supprimer",
+                ]
             );
             break;
         case 'add_clients':
@@ -32,7 +57,7 @@ function _getBodyContent(): string
             break;
         case 'edit_clients':
             $_data = _findDataFromDb('clients', $_GET['id']);
-            if (!$_data){
+            if (!$_data) {
                 $content = _404();
                 break;
             }
@@ -46,7 +71,7 @@ function _getBodyContent(): string
             break;
         case 'delete_clients':
             $_data = _findDataFromDb('clients', $_GET['id']);
-            if (!$_data){
+            if (!$_data) {
                 $content = _404();
                 break;
             }
@@ -58,15 +83,46 @@ function _getBodyContent(): string
                 'libelle' => 'Libellé',
                 'pu' => 'Prix Unitaire',
                 'pa' => "Prix d'achat",
-            ]);
+            ],
+                [
+                    'edit_produits' => "Editer",
+                    'delete_produits' => "Supprimer",
+                ]);
             break;
-
+        case 'add_produits':
+            $content = _getViewForm('produits', [
+                _input('libelle', 'Libellé', 'text', null),
+                _input('pu', 'Prix unitaire', 'number', null),
+                _input('pa', "Prix d'achat", 'number', null),
+            ], 'add_to_db');
+            break;
+        case 'edit_produits':
+            $_data = _findDataFromDb('produits', $_GET['id']);
+            if (!$_data) {
+                $content = _404();
+                break;
+            }
+            $content = _getViewForm('produits', [
+                _input('libelle', 'Libellé', 'text', $_data['libelle']),
+                _input('pu', 'Prix unitaire', 'number', $_data['pu']),
+                _input('pa', "Prix d'achat", 'number', $_data['pa']),
+                _input('id', 'id', 'hidden', $_data['id']),
+            ], 'edit_to_db');
+            break;
+        case 'delete_produits':
+            $_data = _findDataFromDb('produits', $_GET['id']);
+            if (!$_data) {
+                $content = _404();
+                break;
+            }
+            _deleteDataFromDb('produits', $_data['id']);
+            break;
         default:
             $content = _404();
             break;
     }
 
-    return $content;
+    return $content ?? '';
 }
 
 function _404(): string

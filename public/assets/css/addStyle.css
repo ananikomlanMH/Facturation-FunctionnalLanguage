@@ -1,0 +1,23 @@
+#availableProducts tbody tr:hover {
+    cursor: pointer;
+    background-color: #f8f9fa;
+}
+
+#availableProducts tbody tr:hover td, #close {
+    cursor: pointer;
+}
+
+#close{
+    color: red;
+}
+#availableProducts tbody tr:hover .delete-icon {
+    color: red;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+#productTable input {
+    height: 30px;
+    width: 100px;
+}
